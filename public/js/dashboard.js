@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Card Event Bindings
             card.querySelector('.view-form-btn').addEventListener('click', (e) => {
                 e.stopPropagation();
-                window.location.href = `/form.html?token=${p.share_token}&role=doctor`;
+                window.location.href = `/form.html?token=${p.unique_token}&role=doctor`;
             });
 
             card.querySelector('.edit-patient-btn').addEventListener('click', (e) => {
