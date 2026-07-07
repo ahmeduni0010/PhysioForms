@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { createClient } = require('@supabase/supabase-base'); // or @supabase/supabase-js depending on your package.json
+const { createClient } = require('@supabase/supabase-js'); // ✅ Fixed correct package name
 
 const app = express();
 
@@ -12,7 +12,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 app.use(cors());
 app.use(express.json());
 
-// Mock database for credentials validation (Replace with your actual user validation logic or database checks)
+// Mock database for credentials validation (Matches your environment variables or fallback values)
 const DOCTOR_CREDENTIALS = {
     username: process.env.DOCTOR_USERNAME || "admin",
     password: process.env.DOCTOR_PASSWORD || "admin123"
