@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhysioForms - Evaluation Intake Session</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <h1 id="form-title">Patient Intake Evaluation</h1>
+            <div class="user-controls">
+                <span id="patient-meta-display">Loading profile context...</span>
+                <button id="back-to-dash-btn" class="btn-secondary hidden">Return to Dashboard</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="form-page-layout">
+        <div id="status-notification" class="success-banner hidden"></div>
+        <div id="error-notification" class="error-banner hidden"></div>
+
+        <!-- FORM HA21: AVOIDANCE HIERARCHY -->
+        <section class="clinical-card">
+            <div class="form-header-block">
+                <h2>Form HA21: Avoidance Hierarchy</h2>
+                <p>People with OCD will frequently avoid situations that provoke thoughts or urge to ritualise. For example, someone with a fear of being contaminated would avoid hospitals, people that are ill, certain objects that they feel will contaminate them.</p>
+                <strong>Please list all situations, objects you avoid because they cause discomfort or anxiety.</strong>
+            </div>
+
+            <table class="clinical-table" id="table-ha21">
+                <thead>
+                    <tr>
+                        <th style="width: 60px;">#</th>
+                        <th>Avoidance Situation / Object</th>
+                        <th style="width: 140px;">Dial Intensity (1-10)</th>
+                        <th style="width: 80px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-ha21"></tbody>
+            </table>
+            <button type="button" id="add-row-ha21" class="btn-text-action">Add New Avoidance Row</button>
+        </section>
+
+        <!-- FORM HA20: INDIVIDUAL PROGRAM ANALYSIS -->
+        <section class="clinical-card">
+            <div class="form-header-block">
+                <h2>Form HA20: Your Individual Program</h2>
+                <p>Analyse your difficulties by breaking down the problem into its various components.</p>
+                <div class="dial-legend">
+                    <strong>Dial Guide (1 - 10):</strong> 1 = Total relaxation | 5 = Awake & busy | 10 = Worse case scenario / anxiety
+                </div>
+            </div>
+
+            <table class="clinical-table" id="table-ha20">
+                <thead>
+                    <tr>
+                        <th style="width: 180px;">Component Type</th>
+                        <th>Description of Difficulty Details</th>
+                        <th style="width: 140px;">Dial Intensity (1-10)</th>
+                        <th style="width: 80px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-ha20"></tbody>
+            </table>
+            <button type="button" id="add-row-ha20" class="btn-text-action">Add Trigger/Ritual Set</button>
+        </section>
+
+        <div class="submission-footer-tray" style="text-align: right; padding-top: 10px;">
+            <button id="save-forms-btn" class="btn-primary" style="width: auto; padding: 12px 24px;">Sync and Save Forms Securely</button>
+        </div>
+    </main>
+
+    <script src="js/form.js"></script>
+</body>
+</html>
