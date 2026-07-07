@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const patients = await res.json();
             renderPatients(patients);
         } catch (err) {
-            patientsLoading.textContent = 'Failed to load directory files from server.';
+            if (patientsLoading) patientsLoading.textContent = 'Failed to load directory files from server.';
         }
     }
 
@@ -120,6 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 detailsHTML = '<li>No operational evaluation notes added.</li>';
             }
 
+            // Swapped primary action layout back to "Copy Share Link"
             card.innerHTML = `
                 <div class="patient-info">
                     <h4>${escapeHTML(p.name)}</h4>
@@ -129,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </ul>
                 </div>
                 <div class="card-actions">
-                    <button class="btn-card-primary view-form-btn">Open Evaluation Sheet</button>
+                    <button class="btn-card-primary copy-link-btn">Copy Patient Link</button>
                     <div class="card-button-row">
                         <button class="btn-secondary edit-patient-btn">Edit Details</button>
                         <button class="btn-danger-outline delete-patient-btn">Delete</button>
@@ -137,10 +138,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
 
-            // Card Event Bindings - Using unique_token to match Supabase schema
-            card.querySelector('.view-form-btn').addEventListener('click', (e) => {
+            // Action handler to copy verification link directly to clipboard
+            card.querySelector('.copy-link-btn').addEventListener('click', (e) => {
                 e.stopPropagation();
-                window.location.href = `/form.html?token=${p.unique_token}&role=doctor`;
+                const btn = e.target;
+                const shareUrl = `${window.location.origin}/form.html?token=${p.unique_token}`;
+                
+                navigator.clipboard.writeText(shareUrl).then(() => {
+                    const originalText = btn.textContent;
+                    btn.textContent = 'Copied!';
+                    btn.style.background = '#22c55e'; // Green feedback
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.style.background = ''; // Revert to stylesheet layout color
+                    }, 2000);
+                }).catch(() => {
+                    alert('Could not copy automatically. Link: ' + shareUrl);
+                });
             });
 
             card.querySelector('.edit-patient-btn').addEventListener('click', (e) => {
