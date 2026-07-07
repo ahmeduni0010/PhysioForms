@@ -87,7 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const res = await fetch('/api/patients');
             if (res.status === 401) {
-                // If backend dropped session but frontend has it, force refresh
                 localStorage.removeItem('physio_logged_in');
                 window.location.href = '/index.html';
                 return;
@@ -112,7 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement('div');
             card.className = 'patient-card';
             
-            // Build safe detail string items list
             let detailsHTML = '';
             if (p.details && p.details.length > 0) {
                 p.details.forEach(detail => {
@@ -125,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.innerHTML = `
                 <div class="patient-info">
                     <h4>${escapeHTML(p.name)}</h4>
-                    <div class="patient-age">Age: ${p.age} &bull; ID: ${p.id.substring(0,8)}</div>
+                    <div class="patient-age">Age: ${p.age} &bull; ID: ${String(p.id).substring(0,8)}</div>
                     <ul class="patient-details-summary">
                         ${detailsHTML}
                     </ul>
@@ -139,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
 
-            // Card Event Bindings
+            // Card Event Bindings - Using unique_token to match Supabase schema
             card.querySelector('.view-form-btn').addEventListener('click', (e) => {
                 e.stopPropagation();
                 window.location.href = `/form.html?token=${p.unique_token}&role=doctor`;
