@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhysioForms - Doctor Portal Login</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div id="preloader">
+        <div class="spinner"></div>
+        <h2>PhysioForms</h2>
+    </div>
+
+    <main id="login-container" class="hidden">
+        <!-- TOP-LEVEL BRAND LOGO TEXT VIEW -->
+        <div class="login-brand-header">PhysioForms</div>
+
+        <div class="login-box">
+            <h2>Doctor Portal Sign In</h2>
+            <p class="subtitle">Please enter authenticated access credentials</p>
+
+            <div id="error-message" class="error-banner hidden"></div>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter username" required autocomplete="username">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter password" required autocomplete="current-password">
+                </div>
+
+                <button type="submit" class="btn-primary">Sign In</button>
+            </form>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

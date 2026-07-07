@@ -1,0 +1,612 @@
+:root {
+    --bg-primary: #f8fafc;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --brand-color: #0284c7;
+    --brand-dark: #0369a1;
+    --brand-light: #e0f2fe;
+    --white: #ffffff;
+    --border-color: #cbd5e1;
+    --error-color: #dc2626;
+    --error-light: #fee2e2;
+    --success-color: #16a34a;
+    --success-light: #dcfce7;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Preloader Elements */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--white);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--bg-primary);
+    border-top: 4px solid var(--brand-color);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 16px;
+}
+
+#preloader h2 {
+    color: var(--brand-color);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Utilities */
+.hidden { display: none !important; opacity: 0; visibility: hidden; }
+
+/* Login Container & Logo Branding Header */
+#login-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.login-brand-header {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--brand-color);
+    letter-spacing: -0.5px;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+}
+
+.login-box {
+    background-color: var(--white);
+    padding: 40px 32px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 420px;
+}
+
+.login-box h2 {
+    margin-bottom: 4px;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-bottom: 24px;
+}
+
+/* Form Controls */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 14px;
+    color: var(--text-main);
+    outline: none;
+    background-color: var(--white);
+    transition: border-color 0.15s ease;
+}
+
+.form-group input:focus, .form-group select:focus {
+    border-color: var(--brand-color);
+}
+
+/* Buttons */
+.btn-primary {
+    width: 100%;
+    padding: 11px 16px;
+    background-color: var(--brand-color);
+    border: none;
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.btn-primary:hover { background-color: var(--brand-dark); }
+
+.btn-secondary {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 8px 14px;
+    font-size: 13px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn-secondary:hover {
+    background-color: var(--bg-primary);
+}
+
+.btn-danger-outline {
+    background-color: transparent;
+    border: 1px solid var(--error-color);
+    color: var(--error-color);
+    padding: 8px 14px;
+    font-size: 13px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn-danger-outline:hover {
+    background-color: var(--error-light);
+}
+
+.btn-text {
+    background: none;
+    border: none;
+    color: var(--brand-color);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+.btn-text:hover { text-decoration: underline; }
+
+/* Dashboard Structural Grid Layouts */
+.main-header {
+    background-color: var(--white);
+    border-bottom: 1px solid var(--border-color);
+    padding: 16px 24px;
+}
+
+.header-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--brand-color);
+    letter-spacing: -0.3px;
+}
+
+.user-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 14px;
+}
+
+.dashboard-layout {
+    max-width: 1280px;
+    width: 100%;
+    margin: 24px auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 24px;
+}
+
+.card {
+    background-color: var(--white);
+    padding: 24px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    height: fit-content;
+}
+
+.card h3, .cards-section h3 {
+    margin-bottom: 18px;
+    font-size: 16px;
+    font-weight: 600;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-main);
+}
+
+.point-input-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+/* Attractively Tailored Patient Cards Container & Scroll Configuration */
+.patients-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.patient-card {
+    background-color: var(--white);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 310px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    cursor: pointer;
+}
+
+.patient-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px -2px rgba(30, 41, 59, 0.06);
+    border-color: var(--brand-color);
+}
+
+.patient-info h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 4px;
+}
+
+.patient-age {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+/* Fixed height scrollable clinical items log box (Locks heights cleanly) */
+.patient-details-summary {
+    max-height: 110px; 
+    overflow-y: auto;
+    margin-bottom: 16px;
+    padding-left: 18px;
+    color: var(--text-main);
+    font-size: 13.5px;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* Custom minimal clinic-styled scrollbar integration */
+.patient-details-summary::-webkit-scrollbar {
+    width: 5px;
+}
+.patient-details-summary::-webkit-scrollbar-track {
+    background: transparent;
+}
+.patient-details-summary::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+.patient-details-summary::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+.card-actions {
+    margin-top: auto;
+    border-top: 1px solid var(--border-color);
+    padding-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card-button-row {
+    display: flex;
+    gap: 8px;
+}
+
+.card-button-row button {
+    flex: 1;
+}
+
+.btn-card-primary {
+    background-color: var(--brand-light);
+    color: var(--brand-dark);
+    border: 1px solid transparent;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.1s ease;
+}
+
+.btn-card-primary:hover {
+    background-color: #bae6fd;
+}
+
+/* Intake Evaluation Sheets Tables views */
+.form-page-layout {
+    max-width: 1000px;
+    width: 100%;
+    margin: 24px auto;
+    padding: 0 24px 60px 24px;
+}
+
+.clinical-card {
+    background-color: var(--white);
+    padding: 24px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 24px;
+}
+
+.form-header-block h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.form-header-block p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.dial-legend {
+    background-color: var(--bg-primary);
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--text-main);
+}
+
+.clinical-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+}
+
+.clinical-table th {
+    background-color: var(--bg-primary);
+    padding: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+}
+
+.clinical-table td {
+    padding: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.clinical-table input, .clinical-table select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 13px;
+    outline: none;
+}
+
+.btn-delete-row {
+    background: none;
+    color: var(--error-color);
+    border: 1px solid var(--error-color);
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.btn-delete-row:hover { background-color: var(--error-light); }
+
+.btn-text-action {
+    background: none;
+    border: none;
+    color: var(--brand-color);
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.btn-text-action:hover { text-decoration: underline; }
+
+/* Popups Modal Layout structures */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(30, 41, 59, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5000;
+    padding: 20px;
+}
+
+.modal-box {
+    background-color: var(--white);
+    padding: 28px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 520px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+}
+
+.modal-box h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.loading-text {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.error-banner {
+    background-color: var(--error-light);
+    color: var(--error-color);
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 13px;
+    margin-bottom: 16px;
+    border-left: 4px solid var(--error-color);
+}
+
+.success-banner {
+    background-color: var(--success-light);
+    color: var(--success-color);
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 13px;
+    margin-bottom: 16px;
+    border-left: 4px solid var(--success-color);
+}
+
+/* ==========================================================================
+   CREATIVE RESPONSIVE GRID MEDIA BREAKPOINTS (IPADS & MOBILE PHONES)
+   ========================================================================== */
+
+/* IPads / Tablets view optimization (Under 1024px) */
+@media (max-width: 1024px) {
+    .dashboard-layout {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 0 20px;
+    }
+    
+    .card {
+        height: auto;
+    }
+
+    .patients-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 16px;
+    }
+}
+
+/* Mobile Phones view optimization (Under 640px) */
+@media (max-width: 640px) {
+    .main-header {
+        padding: 14px 16px;
+    }
+
+    .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .user-controls {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .dashboard-layout {
+        margin: 16px auto;
+        padding: 0 16px;
+    }
+
+    .login-box {
+        padding: 32px 20px;
+    }
+
+    .patients-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Stack clinical responsive tables gracefully */
+    .clinical-table, .clinical-table thead, .clinical-table tbody, .clinical-table th, .clinical-table td, .clinical-table tr {
+        display: block;
+    }
+
+    .clinical-table thead {
+        display: none; /* Hide standard headers for custom inline mobile rows context */
+    }
+
+    .clinical-table tr {
+        border: 1px solid var(--border-color);
+        margin-bottom: 12px;
+        padding: 10px;
+        border-radius: 6px;
+        background-color: var(--white);
+    }
+
+    .clinical-table td {
+        border: none;
+        padding: 6px 0;
+        position: relative;
+    }
+
+    .clinical-table td::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        margin-bottom: 4px;
+    }
+
+    .action-column {
+        text-align: left !important;
+        border-top: 1px solid var(--bg-primary) !important;
+        margin-top: 4px;
+        padding-top: 8px !important;
+    }
+}
