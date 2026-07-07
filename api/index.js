@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { createClient } = require('@supabase/supabase-js'); // ✅ Fixed correct package name
+const { createClient } = require('@supabase/supabase-js');
 
 const app = express();
 
@@ -51,7 +51,6 @@ app.post('/api/auth/logout', (req, res) => {
 
 // Auth Middleware fallback check to ensure serverless stability
 const verifyAuthSession = (req, res, next) => {
-    // If local runtime memory flags or specific tokens are tracking validation, let the user proceed smoothly
     if (globalAuthenticatedUser) {
         return next();
     }
@@ -64,7 +63,7 @@ app.get('/api/patients', verifyAuthSession, async (req, res) => {
         const { data, error } = await supabase
             .from('patients')
             .select('*')
-            .order('created_at', { ascending: false });
+            .order('id', { ascending: false });
 
         if (error) throw error;
         return res.status(200).json(data || []);
@@ -82,7 +81,7 @@ app.post('/api/patients', verifyAuthSession, async (req, res) => {
     }
 
     // Generate a secure unique random token link for the intake assessment sheet assignment
-    const shareToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    const generatedToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
     try {
         const { data, error } = await supabase
@@ -92,7 +91,7 @@ app.post('/api/patients', verifyAuthSession, async (req, res) => {
                     name, 
                     age: parseInt(age), 
                     details: details || [], 
-                    share_token: shareToken,
+                    unique_token: generatedToken, // ✅ Matches your database column name
                     form_ha21: [],
                     form_ha20: [] 
                 }
@@ -154,7 +153,7 @@ app.get('/api/shared/form/:token', async (req, res) => {
         const { data, error } = await supabase
             .from('patients')
             .select('name, age, form_ha21, form_ha20')
-            .eq('share_token', token)
+            .eq('unique_token', token) // ✅ Matches your database column name
             .single();
 
         if (error || !data) {
@@ -175,7 +174,7 @@ app.post('/api/shared/form/:token', async (req, res) => {
         const { data, error } = await supabase
             .from('patients')
             .update({ form_ha21, form_ha20 })
-            .eq('share_token', token)
+            .eq('unique_token', token) // ✅ Matches your database column name
             .select();
 
         if (error || !data || data.length === 0) {
