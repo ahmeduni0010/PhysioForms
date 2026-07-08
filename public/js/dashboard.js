@@ -110,6 +110,8 @@ document.addEventListener('DOMContentLoaded', () => {
         patients.forEach(p => {
             const card = document.createElement('div');
             card.className = 'patient-card';
+            // Add visual pointer cursor to let the doctor know the card info area is clickable
+            card.style.cursor = 'pointer';
             
             let detailsHTML = '';
             if (p.details && p.details.length > 0) {
@@ -120,14 +122,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 detailsHTML = '<li>No operational evaluation notes added.</li>';
             }
 
-            // Swapped primary action layout back to "Copy Share Link"
             card.innerHTML = `
-                <div class="patient-info">
-                    <h4>${escapeHTML(p.name)}</h4>
-                    <div class="patient-age">Age: ${p.age} &bull; ID: ${String(p.id).substring(0,8)}</div>
-                    <ul class="patient-details-summary">
-                        ${detailsHTML}
-                    </ul>
+                <div class="patient-info-click-area">
+                    <div class="patient-info">
+                        <h4>${escapeHTML(p.name)}</h4>
+                        <div class="patient-age">Age: ${p.age} &bull; ID: ${String(p.id).substring(0,8)}</div>
+                        <ul class="patient-details-summary">
+                            ${detailsHTML}
+                        </ul>
+                    </div>
                 </div>
                 <div class="card-actions">
                     <button class="btn-card-primary copy-link-btn">Copy Patient Link</button>
@@ -138,7 +141,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
 
-            // Action handler to copy verification link directly to clipboard
+            // Clicking the card body opens the internal evaluation form for the doctor
+            card.querySelector('.patient-info-click-area').addEventListener('click', () => {
+                window.location.href = `/form.html?token=${p.unique_token}&role=doctor`;
+            });
+
+            // Action handler to copy verification link directly to clipboard (stops click from bubbling up)
             card.querySelector('.copy-link-btn').addEventListener('click', (e) => {
                 e.stopPropagation();
                 const btn = e.target;
@@ -147,10 +155,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 navigator.clipboard.writeText(shareUrl).then(() => {
                     const originalText = btn.textContent;
                     btn.textContent = 'Copied!';
-                    btn.style.background = '#22c55e'; // Green feedback
+                    btn.style.background = '#22c55e';
                     setTimeout(() => {
                         btn.textContent = originalText;
-                        btn.style.background = ''; // Revert to stylesheet layout color
+                        btn.style.background = '';
                     }, 2000);
                 }).catch(() => {
                     alert('Could not copy automatically. Link: ' + shareUrl);
